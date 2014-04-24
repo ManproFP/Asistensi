@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title> Asistensi UKDW - Login atau Mendaftar </title>
+  <link rel="stylesheet" type="text/css" href="login/login.css">
+ </head>
+
+ <body>
+	<div class="wrapper" id="full_wrap"><!--Wrapper 1 halaman penuh-->
+		<div class="wrapper" id="upper_wrap"><!--Wrapper untuk header-->
+			<div id="header">
+				<div id="upper_right"><!--Header panel kanan-->
+					<form id="login_form" method="post" action="login/confirm.php"><!--Form Login-->
+						<table cellspacing="0">
+							<tbody>
+								<tr><!--Baris untuk label text field-->
+									<td class="label_a"><label for="user_id">User ID</label></td>
+									<td class="label_a"><label for="pass">Password</label></td>
+								</tr>
+								<tr><!--Baris untuk text field dan tombol login-->
+									<td class="field_a"><input id="user_id" name="user_id" type="text" value=""></td>
+									<td class="field_a"><input id="pass" name="pass" type="password" value=""></td>
+									<td class="field_b"><input id="submit_login" class="button" type="submit" value="Log In"></td>
+								</tr>
+								<tr><!--Baris untuk 'Lupa Password'-->
+									<td></td>
+									<td><a href="www.myhostingaddress.com/recover.php?status=0" rel="nofollow">Lupa password?</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+				</div>
+				<div id="upper_left"><!--Header panel Kiri-->
+				  <div id="img_logo"><!--Tempat untuk image Logo UKDW-->
+				    <a href="http://www.ukdw.ac.id" target="_blank"><!--Anchor agar ketika image di klik, akan di alihkan ke situs ukdw-->
+					  <img src="login/logo_ukdw.png" width="61" height="80" class="image" alt="Logo UKDW">
+				    </a>
+				  </div>
+				  <div id="img_title"><!--Tempat untuk image Nama Website-->
+				    <a href="index.php" rel="nofollow"><!--Anchor agar ketika image di klik, akan memuat ulang halaman awal situs-->
+					  <img src="login/web_title.png" class="image" alt="Asistensi UKDW">
+				    </a>
+				  </div>
+				</div>
+			</div>
+		</div>
+		<div id="dummy"></div><!--Untuk menggantikan div upper_wrap yang berposisi fixed-->
+		<div class="wrapper" id="lower_wrap"><!--Wrapper untuk kontent-->
+			<div id="content"><!--Tempat untuk konten pada halaman ini-->
+				<div id="lower_right">
+					<div id="sign_up_note">
+						<p>Ingin jadi Asisten Praktikum / Tutor di UKDW?</p>
+						<p><strong id="main_note">Daftar</strong> sekarang juga!!</p>
+					</div>
+					<div id="sign_up">
+						<form id="sign_up_form" method="post" action="www.myhostingaddress.com/sign_up.php"><!--Form Sign Up-->
+							<input class="input_n" id="full_name" type="text" name="nama" placeholder="Nama lengkap*" ></input><br/>
+							<input class="input_n" id="nim" type="text" name="nim" placeholder="NIM" ></input><br/>
+							<input class="input_n" id="email" type="text" name="email" placeholder="E-mail*" ></input><br/>
+							<input class="input_n" id="confirm" type="text" name="confirm" placeholder="Confirm E-mail*" ></input><br/>
+							<input class="input_n" id="no_hp" type="text" name="no_hp" placeholder="Nomor HP" ></input><br/>
+							<span id="star_note">*&nbsp wajib diisi</span><br/>
+							<span id="gender_opt">
+								<input id="male_opt" type="radio" value="1" name="gender"></input>
+								<label for="male_opt">Laki-laki</label>
+								<input id="female_opt" type="radio" value="2" name="gender"></input>
+								<label for="female_opt">Perempuan</label>
+							</span><br/>
+							<input class="button" id="submit_sign_up" type="submit" value="Mendaftar"></input>
+						<form>
+					</div>
+				</div>
+				<div id="lower_left">
+					<div id="green_board"><img src="login/green_board_note.jpg" alt="Green Board" width="360" height="248"></div><!--Tempat untuk image 'Green Board' -->
+					<div id="green_note">
+						<i>"No place like home but here!"</i><br/>
+						<span>- Universitas Kristen Duta Wacana</span>
+					</div><!--Tempat untuk green note-->
+				</div>
+			</div>
+		</div>
+	</div>
+ </body>
+</html>

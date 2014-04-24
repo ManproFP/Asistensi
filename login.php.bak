@@ -1,0 +1,16 @@
+<?php
+	session_start();
+	if(isset($_SESSION["logged"])){
+		if($_SESSION["logged"]==1){
+			header("location: index.php");
+			exit();
+		}	
+	}
+	if(!isset($_POST["username"]) && !isset($_POST["password"])){
+		$box_id = "space";
+	}
+	else{
+		$box_id = "error";
+	}
+	include 'login/login.html';
+?>
