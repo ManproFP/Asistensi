@@ -1,0 +1,23 @@
+a{
+	text-decoration:none;
+	border:none;
+}
+
+body {
+   margin:0px;
+   min-height: 100%;
+   width: 100%;
+   min-width: 900px;
+   background-repeat: no-repeat;
+   background-attachment: fixed;
+}
+
+html {
+   margin:0px;
+   height: 100%;
+   width: 100%;
+}
+
+label:hover{
+	cursor:pointer;
+}
