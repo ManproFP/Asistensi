@@ -1,11 +1,8 @@
-<?php
-	session_start();
-	if(isset($_SESSION["logged"])){
-		if($_SESSION["logged"]==0){
-			header("location: index.php");
-			exit();
-		}	
-	}
+<?php //Logged Confirmation Function
+		//Halaman ini hanya dapat diakses setelah user melakukan log in terlebih dahulu.
+		//Untuk itu perlu dilakukan pengecekan dengan memanggil fungsi berikut.
+		include 'check_not_logged.php'; //
+		//**Pemanggilan fungsi di atas juga dimaksudkan agar variabel yang ada pada Session PHP siap untuk digunakan.
 ?>
 
 <!DOCTYPE HTML>

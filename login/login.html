@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
 <html>
  <head>
+  <!--Judul halaman-->
   <title> Asistensi UKDW - Login atau Mendaftar </title>
   <link rel="stylesheet" type="text/css" href="login/login.css">
  </head>
@@ -8,7 +9,8 @@
  <body>
 	<div class="wrapper" id="full_wrap"><!--Wrapper 1 halaman penuh-->
 		<div class="wrapper" id="upper_wrap"><!--Wrapper untuk header-->
-			<div id="header">
+			<div id="header"><!--Block header-->
+			    <!---->
 				<div id="upper_right"><!--Header panel kanan-->
 					<form id="login_form" method="post" action="login/confirm.php"><!--Form Login-->
 						<table cellspacing="0">
@@ -23,27 +25,36 @@
 									<td class="field_b"><input id="submit_login" class="button" type="submit" value="Log In"></td>
 								</tr>
 								<tr><!--Baris untuk 'Lupa Password'-->
-									<td><a href="www.myhostingaddress.com/recover.php?status=0" rel="nofollow">Lupa password?</a></td>
+									<td><!--Link yang mengarahkan user pada proses reset pasword-->
+										<a href="www.myhostingaddress.com/recover.php?status=0" rel="nofollow">Lupa password?</a>
+									</td>
 								</tr>
 							</tbody>
 						</table>
-					</form>
-				</div>
+					</form><!--End of Form Login-->
+				</div><!--End of Header Panel Kanan-->
+				<!---->
+				<!---->
 				<div id="upper_left"><!--Header panel Kiri-->
 				  <div id="img_logo"><!--Tempat untuk image Logo UKDW-->
-				    <a href="http://www.ukdw.ac.id" target="_blank"><!--Anchor agar ketika image di klik, akan di alihkan ke situs ukdw-->
-					  <img src="login/logo_ukdw.png" width="61" height="80" class="image" alt="Logo UKDW">
+				    <a href="http://www.ukdw.ac.id" target="_blank"><!--Link agar ketika image di klik, akan di alihkan ke situs ukdw-->
+					  <img src="login/logo_ukdw.png" width="61" height="80" class="image" alt="Logo UKDW"><!--Image untuk Logo UKDW-->
 				    </a>
 				  </div>
 				  <div id="img_title"><!--Tempat untuk image Nama Website-->
-				    <a href="index.php" rel="nofollow"><!--Anchor agar ketika image di klik, akan memuat ulang halaman awal situs-->
-					  <img src="login/web_title.png" class="image" alt="Asistensi UKDW">
+				    <a href="index.php" rel="nofollow"><!--Link agar ketika image di klik, akan memuat halaman index situs ini-->
+					  <img src="login/web_title.png" class="image" alt="Asistensi UKDW"><!--Image untuk Nama Website-->
 				    </a>
 				  </div>
-				</div>
-			</div>
+				</div><!--End of Header Panel Kiri-->
+				<!---->
+			</div><!--End of Header-->
+		</div><!--End of Upper Warp-->
+
+		<div id="dummy">
+			<!--Dummy block untuk menggantikan div upper_wrap yang berposisi fixed-->
 		</div>
-		<div id="dummy"></div><!--Untuk menggantikan div upper_wrap yang berposisi fixed-->
+
 		<div class="wrapper" id="lower_wrap"><!--Wrapper untuk kontent-->
 			<div id="content"><!--Tempat untuk konten pada halaman ini-->
 				<div id="lower_right">

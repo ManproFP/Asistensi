@@ -1,9 +1,0 @@
-<?php
-	$server = "localhost";
-	$username = "root";
-	$password = "";
-	$database = "progweb";
-
-	$mysqli = new mysqli($server, $username, $password, $database)or die ("Gagal Koneksi");
-
-?>
