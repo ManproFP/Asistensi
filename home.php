@@ -13,6 +13,4 @@
 
  <body>
 	Welcome<br/>
-	<a href="logout.php">Log Out</a>
- </body>
-</html>
+	<!--comment by andy -->
