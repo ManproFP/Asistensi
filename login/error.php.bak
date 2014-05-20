@@ -8,7 +8,7 @@
 	//  serta dapat juga digunakan sebagai beranda suatu website.
 
 	//Tampilkan UI untuk halaman Log In Error.
-	include 'error.html';
+	include 'sign_up.html';
 	include '../footer.php';
 	echo "
 	</div>

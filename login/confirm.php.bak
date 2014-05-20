@@ -82,13 +82,17 @@
 			
 			//Switch type yang didapat dari hasil eksekusi sebelumnya dengan tipe yang bersesuaian.
 			switch($type){
-				case 0: $table = "koordinator";
+				case 0: $table = "koordinator"; 
+						$id = "koor_id"; //var as string
 						break;
 				case 1: $table = "dosen";
+						$id = "dosen_id"; //var as string
 						break;
 				case 2: $table = "mahasiswa";
+						$id = "nim"; //var as integer
 						break;
 				default: $table = "unidentified";
+						$id = "unidentified";
 						break;
 			} //** 0 sebagai koordinator maupun 2 sebagai mahasiswa telah ditentukan sebelumnya saat proses pembuatan database sehingga mengganti
 			  //** switch-case yang telah ada ini memerlukan penyesuaian pada database yang ada.

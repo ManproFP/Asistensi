@@ -1,0 +1,16 @@
+<?php
+	if(!isset($_GET["id"]) || !isset($_GET["type"])){
+		echo "
+			<h3>Profil ";
+		if($target_type == 1){
+			echo "Dosen";
+		}
+		else{
+			echo "Mahasiswa";		
+		}
+		echo "</h3>
+		";
+	}
+	else{
+	}
+?>

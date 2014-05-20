@@ -4,9 +4,4 @@
 		include 'check_logged.php';
 		//Jika belum, maka tampilkan UI untuk halaman log in.
 		include 'login/login.html';
-		include 'footer.php';
-		echo"
-	</div>
- </body>
-</html>";
 ?>

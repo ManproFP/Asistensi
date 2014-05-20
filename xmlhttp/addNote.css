@@ -1,0 +1,58 @@
+h3, h4{
+	color:#5E1B2C;
+}
+
+form{
+	width:410px;
+
+}
+
+textarea{
+	background-color:white;
+	color:black;
+	width:400px;
+	min-height:100px;
+	border:1px solid black;
+	padding:3px;
+	resize:vertical;
+}
+
+input{
+	float:right;
+}
+
+.content{
+	display:inline-block;
+	margin-left:15px;
+	padding-left:3px;
+}
+
+.right{
+	float:right;
+}
+
+.submit_button{
+	color:white;
+	width:49px;
+	text-align: center;
+	height: 18px;
+	line-height: 18px;
+	vertical-align: middle;
+	font-weight: bold;
+	font-size: 11px;
+	border: 1px solid #444;
+	border-radius: 3px;
+	background: linear-gradient(to bottom, #A5072D, #000) repeat scroll 0% 0% transparent;
+}
+
+.submit_button:hover{
+	cursor: pointer;
+	background: linear-gradient(to bottom, #A5072D, #5E1B2C) repeat scroll 0% 0% transparent;
+}
+
+
+.wrapper{
+	min-width:450px;
+	width:80%;
+	margin:0 auto;
+}

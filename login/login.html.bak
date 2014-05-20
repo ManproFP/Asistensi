@@ -153,7 +153,7 @@
 						<form id="sign_up_form" method="post" action="login/sign_up.php" onsubmit="return(cekSignUpForm())"><!--Form Sign Up-->
 							<input class="input_n" id="full_name" type="text" name="nama" placeholder="Nama lengkap*" value=""><br/>
 							<input class="input_n" id="nim" type="text" name="nim" placeholder="NIM*" value=""><br/>
-							<input class="input_n" id="email" type="text" name="email" placeholder="E-mail*" value="" onblur="reenterEmail()"><br/>
+							<input class="input_n" id="email" type="text" name="email" placeholder="E-mail*" value=""><br/>
 							<input class="input_n" id="confirm" type="text" name="confirm" placeholder="Re-enter E-mail*" onblur="reenterEmail()" value=""><br/>
 							<input class="input_n" id="no_hp" type="text" name="no_hp" placeholder="Nomor HP" value=""><br/>
 							<span id="star_note">*&nbsp wajib diisi</span><br/>

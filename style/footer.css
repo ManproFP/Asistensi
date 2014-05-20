@@ -1,0 +1,19 @@
+#footer_upper{
+	height:36px;
+	background-color:#5D1B2B;
+	color:white;
+}
+
+#footer_lower{
+	font-size:12px;
+	background-color:#202020;
+	color:white;
+	text-align:center;
+}
+
+#footer_lower span{
+	height:24px;
+	line-height:24px;
+	vertical-align:middle;
+	width:100px;
+}
