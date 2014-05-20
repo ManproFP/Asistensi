@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 25, 2014 at 09:13 AM
+-- Generation Time: May 19, 2014 at 05:38 PM
 -- Server version: 5.6.11
 -- PHP Version: 5.5.1
 
@@ -25,15 +25,45 @@ USE `manpro_fp`;
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `ampu`
+--
+
+CREATE TABLE IF NOT EXISTS `ampu` (
+  `dosen_id` varchar(10) NOT NULL,
+  `mk_id` varchar(8) NOT NULL,
+  KEY `mk_id` (`mk_id`),
+  KEY `dosen_id` (`dosen_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ampu`
+--
+
+INSERT INTO `ampu` (`dosen_id`, `mk_id`) VALUES
+('TI090001', 'TIW015');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `asistensi`
 --
 
 CREATE TABLE IF NOT EXISTS `asistensi` (
-  `nim` int(11) NOT NULL,
-  `jadwal_id` int(11) NOT NULL,
-  UNIQUE KEY `jadwal_id` (`jadwal_id`),
-  KEY `nim` (`nim`)
+  `nim` varchar(11) NOT NULL,
+  `jadwal_id` varchar(10) NOT NULL,
+  `status` varchar(15) NOT NULL DEFAULT 'diproses',
+  KEY `nim` (`nim`),
+  KEY `jadwal_id` (`jadwal_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `asistensi`
+--
+
+INSERT INTO `asistensi` (`nim`, `jadwal_id`, `status`) VALUES
+('71110061', '12LabA', 'diproses'),
+('71110150', '51LabA', 'diproses'),
+('71110150', '12LabA', 'diproses');
 
 -- --------------------------------------------------------
 
@@ -47,8 +77,15 @@ CREATE TABLE IF NOT EXISTS `dosen` (
   `email` varchar(30) NOT NULL,
   `user_id` varchar(30) NOT NULL,
   PRIMARY KEY (`dosen_id`),
-  KEY `user_id` (`user_id`)
+  UNIQUE KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `dosen`
+--
+
+INSERT INTO `dosen` (`dosen_id`, `nama`, `email`, `user_id`) VALUES
+('TI090001', 'Mr. Dosen Serba Bisa, S.Pk, M.Pr', 'nama_dosen@ti.ukdw.ac.id', 'TI090001');
 
 -- --------------------------------------------------------
 
@@ -61,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `historycal_note` (
   `semester` varchar(10) NOT NULL,
   `tahun_ajar` varchar(10) NOT NULL,
   `note` varchar(100) NOT NULL,
-  `nim` int(11) NOT NULL,
+  `nim` varchar(11) NOT NULL,
   `dosen_id` varchar(10) NOT NULL,
   `mk_id` varchar(8) NOT NULL,
   PRIMARY KEY (`hn_id`),
@@ -77,9 +114,9 @@ CREATE TABLE IF NOT EXISTS `historycal_note` (
 --
 
 CREATE TABLE IF NOT EXISTS `jadwal` (
-  `jadwal_id` int(11) NOT NULL,
+  `jadwal_id` varchar(10) NOT NULL,
   `hari` varchar(10) NOT NULL,
-  `waktu` varchar(10) NOT NULL,
+  `waktu` time NOT NULL,
   `jenis` varchar(10) NOT NULL DEFAULT 'Pratikum',
   `ruang` varchar(8) NOT NULL,
   `grup` varchar(2) NOT NULL,
@@ -87,6 +124,14 @@ CREATE TABLE IF NOT EXISTS `jadwal` (
   PRIMARY KEY (`jadwal_id`),
   KEY `mk_id` (`mk_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `jadwal`
+--
+
+INSERT INTO `jadwal` (`jadwal_id`, `hari`, `waktu`, `jenis`, `ruang`, `grup`, `mk_id`) VALUES
+('12LabA', 'Senin', '11:30:00', 'Pratikum', 'Lab. A', 'A', 'TIW015'),
+('51LabA', 'Jumat', '07:30:00', 'Pratikum', 'Lab. A', 'A', 'TIW015');
 
 -- --------------------------------------------------------
 
@@ -100,7 +145,7 @@ CREATE TABLE IF NOT EXISTS `koordinator` (
   `email` varchar(30) NOT NULL,
   `user_id` varchar(30) NOT NULL,
   PRIMARY KEY (`koor_id`),
-  KEY `user_id` (`user_id`)
+  UNIQUE KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -118,15 +163,23 @@ INSERT INTO `koordinator` (`koor_id`, `nama`, `email`, `user_id`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `mahasiswa` (
-  `nim` int(8) NOT NULL,
+  `nim` varchar(11) NOT NULL,
   `nama` varchar(50) NOT NULL,
   `gender` varchar(20) NOT NULL,
   `no_hp` varchar(15) NOT NULL,
   `email` varchar(30) NOT NULL,
   `user_id` varchar(30) NOT NULL,
-  PRIMARY KEY (`nim`),
-  KEY `user_id` (`user_id`)
+  UNIQUE KEY `user_id` (`user_id`),
+  UNIQUE KEY `nim` (`nim`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `mahasiswa`
+--
+
+INSERT INTO `mahasiswa` (`nim`, `nama`, `gender`, `no_hp`, `email`, `user_id`) VALUES
+('71110061', 'Andy Kurniawan', 'Laki-laki', '+6285729867666', 'andy_kurniawan@live.com', '71110061'),
+('71110150', 'Yesaya Kristian Niko', 'Laki-laki', '+6289693431443', 'rhaynick@live.com', '71110150');
 
 -- --------------------------------------------------------
 
@@ -141,6 +194,13 @@ CREATE TABLE IF NOT EXISTS `matakuliah` (
   PRIMARY KEY (`mk_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `matakuliah`
+--
+
+INSERT INTO `matakuliah` (`mk_id`, `nama`, `sks`) VALUES
+('TIW015', 'Teknologi Komputer', 5);
+
 -- --------------------------------------------------------
 
 --
@@ -148,13 +208,53 @@ CREATE TABLE IF NOT EXISTS `matakuliah` (
 --
 
 CREATE TABLE IF NOT EXISTS `pengumuman` (
-  `note_id` int(11) NOT NULL,
-  `tanggal` varchar(20) NOT NULL,
-  `isi` varchar(100) NOT NULL,
+  `note_id` int(11) NOT NULL AUTO_INCREMENT,
+  `tanggal` date NOT NULL,
+  `isi` varchar(1000) NOT NULL,
   `koor_id` varchar(10) NOT NULL,
   PRIMARY KEY (`note_id`),
   KEY `koor_id` (`koor_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+
+--
+-- Dumping data for table `pengumuman`
+--
+
+INSERT INTO `pengumuman` (`note_id`, `tanggal`, `isi`, `koor_id`) VALUES
+(1, '2014-05-14', 'Asistensi UKDW versi Closed Beta', 'Admin01'),
+(4, '2014-05-15', 'Final release untuk situs ini akan dilaksanakan pada akhir Juni 2014.', 'Admin02'),
+(7, '2014-05-18', 'Dibutuhkan beta tester berpengalaman.', 'Admin01');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `recent_activity`
+--
+
+CREATE TABLE IF NOT EXISTS `recent_activity` (
+  `waktu` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `aktivis` varchar(30) NOT NULL,
+  `aktivitas` varchar(100) NOT NULL,
+  PRIMARY KEY (`waktu`),
+  KEY `aktivis` (`aktivis`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `recent_activity`
+--
+
+INSERT INTO `recent_activity` (`waktu`, `aktivis`, `aktivitas`) VALUES
+('2014-05-14 16:48:32', 'Admin01', 'menambahkan pengumuman baru.'),
+('2014-05-14 17:25:58', 'Admin02', 'menambahkan pengumuman baru.'),
+('2014-05-18 02:20:28', 'Admin01', 'menambahkan pengumuman baru.'),
+('2014-05-19 08:16:37', '71110150', 'membatalkan asistensi.'),
+('2014-05-19 08:27:19', '71110150', 'mendaftar asistensi.'),
+('2014-05-19 08:27:56', '71110150', 'mendaftar asistensi.'),
+('2014-05-19 08:29:12', '71110150', 'mendaftar asistensi.'),
+('2014-05-19 08:29:18', '71110150', 'membatalkan asistensi.'),
+('2014-05-19 08:33:22', '71110150', 'mendaftar asistensi.'),
+('2014-05-19 08:33:47', '71110150', 'membatalkan asistensi.'),
+('2014-05-19 08:33:50', '71110150', 'mendaftar asistensi.');
 
 -- --------------------------------------------------------
 
@@ -177,18 +277,26 @@ INSERT INTO `user` (`user_id`, `password`, `user_type`) VALUES
 ('71110061', '746fef5972309cb2cd432f4feb2e1cf7', 2),
 ('71110150', '7213a5d7d54d0845a2cd3b71d0f64b00', 2),
 ('Admin01', '798ebdec9075ffce12517800b7eb6179', 0),
-('Admin02', '6fdc43db03afcd1b13158b605a68f83b', 0);
+('Admin02', '6fdc43db03afcd1b13158b605a68f83b', 0),
+('TI090001', '92c766f35c324142e1ccf15667bf6475', 1);
 
 --
 -- Constraints for dumped tables
 --
 
 --
+-- Constraints for table `ampu`
+--
+ALTER TABLE `ampu`
+  ADD CONSTRAINT `diampu` FOREIGN KEY (`mk_id`) REFERENCES `matakuliah` (`mk_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `mengampu` FOREIGN KEY (`dosen_id`) REFERENCES `dosen` (`dosen_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `asistensi`
 --
 ALTER TABLE `asistensi`
   ADD CONSTRAINT `jadwal_assist` FOREIGN KEY (`jadwal_id`) REFERENCES `jadwal` (`jadwal_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `mahasiswa` FOREIGN KEY (`nim`) REFERENCES `mahasiswa` (`nim`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `mhs_asist` FOREIGN KEY (`nim`) REFERENCES `mahasiswa` (`nim`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `dosen`
@@ -200,9 +308,9 @@ ALTER TABLE `dosen`
 -- Constraints for table `historycal_note`
 --
 ALTER TABLE `historycal_note`
-  ADD CONSTRAINT `note_of` FOREIGN KEY (`mk_id`) REFERENCES `matakuliah` (`mk_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `note_for` FOREIGN KEY (`nim`) REFERENCES `mahasiswa` (`nim`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `note_from` FOREIGN KEY (`dosen_id`) REFERENCES `dosen` (`dosen_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `note_from` FOREIGN KEY (`dosen_id`) REFERENCES `dosen` (`dosen_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `note_of` FOREIGN KEY (`mk_id`) REFERENCES `matakuliah` (`mk_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `jadwal`
@@ -227,6 +335,12 @@ ALTER TABLE `mahasiswa`
 --
 ALTER TABLE `pengumuman`
   ADD CONSTRAINT `koor_note` FOREIGN KEY (`koor_id`) REFERENCES `koordinator` (`koor_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `recent_activity`
+--
+ALTER TABLE `recent_activity`
+  ADD CONSTRAINT `user_as_aktivis` FOREIGN KEY (`aktivis`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
