@@ -219,6 +219,16 @@ label:hover{
 	color:#4C9ED9;
 }
 
+.list_mk_berpraktikum{
+	font-weight:bold;
+	color:#202020;
+}
+
+.list_mk_berpraktikum:hover{
+	cursor:pointer;
+	color:#4C9ED9;
+}
+
 .llc_recent_activity_admin{
 	height:433px;
 }
@@ -500,6 +510,10 @@ label:hover{
 	margin-left:15px;
 	width:425px;
 	overflow:visible;
+}
+
+#content_mk_upper > div{
+	overflow:hidden;
 }
 
 #content_mk_lower{

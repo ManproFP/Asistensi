@@ -13,11 +13,7 @@
   <link rel="stylesheet" type="text/css" href="style/main.css">
   <script type="text/javascript">
   <!--
-  //-->
-  </script>
-  <script type="text/javascript">
-	<!--
-	//Fungsi untuk menampilkan popup
+  //Fungsi untuk menampilkan popup
 	function openPopUp(src){
 		//alert(src);
 		//Tampung elemen popup ke dalam variabel JS
@@ -34,12 +30,24 @@
 	//Fungsi untuk menutup popup
 	function closePopUp(box){//closePopUp akan melakukan fungsi refresh Box sebelum kemudian menutup pop up
 		switch(box){
-			case "content_1_mk" : refreshContent("content_1_mk"); break;
-			case "content_2_mk" : refreshContent("content_1_mk"); break;
+			case "content_2_for_user_type_1": refreshContent1("content_1_for_user_type_1"); refreshContent2("content_2_for_user_type_1"); break;
+			case "content_2_for_user_type_2": refreshContent1("content_1_for_user_type_2"); refreshContent2("content_2_for_user_type_2"); break;
 		}
 		var popup = document.getElementById("trans");
 		//set kembali elemen popup menjadi hidden
 		popup.setAttribute('style','display:none;');
+	}
+	
+	function refreshContent1(id){
+		var content1 = document.getElementById(id);
+		xmlhttpContent1=new XMLHttpRequest();
+		xmlhttpContent1.onreadystatechange=function(){
+			if (xmlhttpContent1.readyState==4 && xmlhttpContent1.status==200){
+				content1.innerHTML = xmlhttpContent1.responseText;
+			}
+		}
+		xmlhttpContent1.open("GET","xmlhttp/refreshContent1.php?id="+id,true);
+		xmlhttpContent1.send();
 	}
 
 	function refreshContent2(id){
@@ -53,11 +61,38 @@
 		xmlhttpContent2.open("GET","xmlhttp/refreshContent2.php?id="+id,true);
 		xmlhttpContent2.send();
 	}
-
 	window.onload = function(){
+		//Siapkan ID untuk content 2 (untuk cek ada tidaknya content 2)
+		var content2ID = "";
+		var content1ID = "";
+		//Cek apakah ada content 2 untuk tipe user 1 (Dosen)
+		if(document.getElementById('content_2_for_user_type_1')!=null){
+			//Set ID content 2 (untuk Dosen)
+			content2ID = "content_2_for_user_type_1";
+		}//Cek apakah ada content 2 untuk tipe user 2 (Mahasiswa)
+		else if(document.getElementById('content_2_for_user_type_2') != null){
+			//Set ID content 2 (untuk Mahasiswa)
+			content2ID = "content_2_for_user_type_2";
+		}
 
+		if(document.getElementById('content_1_for_user_type_0')!=null){
+			//Set ID content 1 (untuk Koordinator)
+			content1ID = "content_1_for_user_type_0";
+		}
+		else if(document.getElementById('content_1_for_user_type_1') != null){
+			//Set ID content 1 (untuk Dosen)
+			content1ID = "content_1_for_user_type_1";
+		}
+		else if(document.getElementById('content_1_for_user_type_2') != null){
+			//Set ID content 1 (untuk Mahasiswa)
+			content1ID = "content_1_for_user_type_2";
+		}
+		//Tampilkan Content 1 (jika ada)
+		if(content1ID != "") refreshContent1(content1ID);
+		//Tampilkan Content 2 (jika ada)
+		if(content2ID != "") refreshContent2(content2ID);
 	}
-	//-->
+  //-->
   </script>
  </head>
 
@@ -73,8 +108,8 @@
 							<?php
 								switch($_SESSION["type"]){
 									case 0: echo "Total Mata kuliah"; break;
-									case 1: echo "Mata kuliah di daftar asistensi Anda"; break;
-									case 2: echo "Mata kuliah yang Anda ampu"; break;
+									case 1: echo "Mata kuliah yang Anda ampu"; break;
+									case 2: echo "Mata kuliah di daftar asistensi Anda"; break;
 								}
 							?>
 						</span>
@@ -82,12 +117,12 @@
 							<?php
 								switch($_SESSION["type"]){
 									case 0: echo "
-												<span>Mata kuliah berpraktikum : 1</span><span class='button_span_mk'>+ Add</span><br/>
-												<span>Mata kuliah bertutorial &nbsp: 0</span><span class='button_span_mk'>+ Add</span><br/>
-												<span>Total mata kuliah berpraktikum/tutorial : 1</span><span class='button_span_mk'>+ Add</span>";
+												<span>Mata kuliah berpraktikum : 1</span>"//<span class='button_span_mk'>+ Add</span>
+												."<br/><span>Mata kuliah bertutorial &nbsp: 0</span>"//<span class='button_span_mk'>+ Add</span>
+												."<br/><span>Total mata kuliah berpraktikum/tutorial : 1</span>";//<span class='button_span_mk'>+ Add</span>";
 											break;
-									case 1: echo "<span><a class='mk_click_to_pop'>[TIW015] Teknologi Komputer</a> 5sks. Total asisten: 0 diterima, 3 diproses</span>"; break;
-									case 2: echo "<span><a class='mk_click_to_pop'>[TIW015] Teknologi Komputer</a> 5sks. Status: diproses.</span><span class='button_span_mk'>Batal</span>"; break;
+									case 1: $_SESSION["opened_popup"] = 'content_2_for_user_type_1'; echo "<div id='content_2_for_user_type_1'></div>"; break;
+									case 2: $_SESSION["opened_popup"] = 'content_2_for_user_type_2'; echo "<div id='content_2_for_user_type_2'></div>"; break;
 								}
 							?>
 						</div>
@@ -105,12 +140,10 @@
 						<div id="content_mk_lower">
 							<?php
 								switch($_SESSION["type"]){
-									case 0: echo "
-												<span><a class='mk_click_to_pop'>[TIW015] Teknologi Komputer</a> 5sks.</span><span class='button_span_mk'>Delete</span><br/>
-												<span>&nbsp&nbsp&nbsp&nbspTotal jadwal: 2 Praktikum, 0 Tutorial</span>";
+									case 0: echo "<div id='content_1_for_user_type_0'></div>";
 											break;
-									case 1: echo "<span><i>Belum ada mata kuliah lain untuk ditampilkan saat ini.</i></span>"; break;
-									case 2: echo "<span><i>Belum ada mata kuliah lain untuk ditampilkan saat ini.</i>"; break;
+									case 1: echo "<div id='content_1_for_user_type_1'></div>"; break;
+									case 2: echo "<div id='content_1_for_user_type_2'></div>"; break;
 								}
 							?>
 						</div>

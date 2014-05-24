@@ -259,6 +259,38 @@ label:hover{
 	margin-bottom:0px;
 }
 
+#recovery_content{
+	min-height:250px;
+	width:500px;
+	margin: 0px auto;
+	margin-top:75px;
+	border:1px solid gray;
+	border-radius:5px;
+}
+
+#recovery_content p{
+	border-bottom:1px solid gray;
+	margin:25px 20px 25px 20px;
+	font-size:14pt;
+	padding-bottom:5px;
+}
+
+#submit_recover{
+	border: 1px solid #000;
+	border-radius: 3px;
+	background: linear-gradient(to bottom, #A5072D, #000) repeat scroll 0% 0% transparent;
+	color: #FFF;
+	height: 24px;
+	line-height: 22px;
+	vertical-align: middle;
+	font-weight: bold;
+	font-size: 11px;
+}
+
+#submit_recover:hover{
+	cursor:pointer;
+}
+
 #signup_content{
 	min-height:200px;
 	width:500px;
@@ -285,6 +317,10 @@ label:hover{
 	border: 1px solid #3B5998;
 	background-color: #D3D7DC;
 	font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+}
+
+#signup_note form{
+	text-align:center;
 }
 
 #signup_title{
@@ -323,6 +359,14 @@ label:hover{
 	background:#5E1B2C;
 	position:fixed;
 	top:0px;
+}
+
+#user_id_to_recover{
+	border:1px solid black;
+	color:black;
+	background:white;
+	border-radius:3px;
+	min-width:200px;
 }
 
 #relogin{

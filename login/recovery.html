@@ -5,6 +5,17 @@
   <title> Asistensi UKDW - Pendaftaran Diproses</title>
   <link rel="stylesheet" type="text/css" href="login.css">
   <link rel="stylesheet" type="text/css" href="../style/footer.css">
+  <script type="text/javascript">
+  <!--
+	function cekRecID(){
+		var id = document.getElementById("user_id_to_recover");
+		if(id.value == ""){
+			return false;
+		}
+		else return true;
+	}
+  //-->
+  </script>
  </head>
 
  <body>
@@ -31,12 +42,17 @@
 		<div id="dummy"></div><!--Untuk menggantikan div upper_wrap yang berposisi fixed-->
 		<div class="wrapper" id="lower_wrap"><!--Wrapper untuk kontent-->
 			<div id="content"><!--Tempat untuk konten pada halaman ini-->
-				<div id="signup_content">
+				<div id="recovery_content">
 					<p>Portal Asistensi UKDW</p>
 					<!--Tempat untuk pesan login error-->
 					<div id="signup_note">
-						<div id="signup_title">Pendaftaran Berhasil</div>
-						<span>Silahkan melakukan login.</span><br/>
+						<div id="signup_title">Recovery Password</div>
+						<span>Sebuah link akan dikirimkan ke alamat email Anda.</span><br/>
+						<span>Silahkan buka link tersebut untuk mengganti password akun Anda.</span><br/><br/>
+						<form action='sendPassRec.php' method='post' onsubmit='return(cekRecID())'>
+							<input id='user_id_to_recover' name='user_id' type='text' value='' placeholder = 'Masukan Username Anda'><br/><br/>
+							<input id='submit_recover' name='submit' value='Recover' type='submit'>
+						</form>
 					</div>
 				</div>
 			</div>

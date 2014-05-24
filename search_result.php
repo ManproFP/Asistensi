@@ -22,6 +22,7 @@
 		popup.setAttribute('style','display:block;');
 		//Tampung elemen frame untuk menampilkan isi popup ke dalam variabel JS
 		var frame = document.getElementById('frame1');
+		frame.setAttribute('style','display:block');
 		//tambahkan atribut src dengan file untuk menambahkan pengumuman
 		frame.setAttribute('src',src);
 	}

@@ -51,10 +51,10 @@
 							$stmt3->bind_result($nim,$status_asistensi);
 							$stmt3->store_result();
 							$result3 = $stmt3->fetch();
+							$count_diproses = 0;
+							$count_diterima = 0;
 							if($stmt3->num_rows != 0){
 								if(!empty($result3)){
-									$count_diproses = 0;
-									$count_diterima = 0;
 									do{
 										if($status_asistensi == "diproses"){
 											$count_diproses++;
@@ -63,9 +63,9 @@
 											$count_diterima++;
 										}
 									}while( $result3 = $stmt3->fetch() );
-									$returned_content2 .= $count_diterima." diterima, ".$count_diproses." diproses.</div>";
 								}
 							}
+							$returned_content2 .= $count_diterima." diterima, ".$count_diproses." diproses.</div>";
 							$stmt3->close();
 						}while( $result2 = $stmt2->fetch() );
 					}
@@ -77,8 +77,53 @@
 	$stmt->close();
 	$mysqli->close();
   }
-  else if($_GET["id"] == "content_2_for_user_type_1"){//Content 2 untuk Mahasiswa
-	
+  else if($_GET["id"] == "content_2_for_user_type_2"){//Content 2 untuk Mahasiswa
+	//buka koneksi ke database
+	include '../login/connect.php';
+	//Query untuk mengambil id Matakuliah Asistensi
+	$query = "SELECT DISTINCT jadwal.mk_id FROM asistensi INNER JOIN jadwal WHERE jadwal.jadwal_id = asistensi.jadwal_id AND asistensi.nim = ? ORDER BY jadwal.mk_id ASC";
+	//Gunakan statement mysqli hingga didapat halil yang dicari (Penjelasan sama seperti pada file confirm.php).
+	$stmt = $mysqli->prepare($query);
+	echo $mysqli->error;
+	$stmt->bind_param('s', $user_id);
+	$stmt->execute();
+	$stmt->bind_result($mk_id);
+	$stmt->store_result();
+	$result = $stmt->fetch();
+						
+	//Cek jumlah hasil yang didapat.
+	if($stmt->num_rows == 0){//Jika tidak ada, tambahkan pada variabel informasi bahwa tidak ada matakuliah yang diampu
+		$returned_content2 .= "<div id='asistensi_matakuliah_kosong' class='content2'>Tidak ada matakuliah dalam daftar asistensi Anda.</div>";
+	}
+	else{//Jika ada,
+		if(!empty($result)){//pastikan baris yang diakses saat ini tidak kosong
+			$counter=0;
+			do{
+				$counter++;
+				$linkPopUp = "detailed_mk.php?id=".$mk_id;
+				$returned_content2 .= "<div id='matakuliah_".$mk_id."' class='content2'>".$counter.". <span class='list_mk_diampu' onclick='openPopUp(\"".$linkPopUp."\")'>".$mk_id;
+				//akses tabel matakuliah untuk mendapat info lebih lanjut
+				$query2 = "SELECT nama, sks FROM matakuliah WHERE mk_id = ?";
+				$stmt2 = $mysqli->prepare($query2);
+				echo $mysqli->error;
+				$stmt2->bind_param('s', $mk_id);
+				$stmt2->execute();
+				$stmt2->bind_result($nama_mk, $sks_mk);
+				$stmt2->store_result();
+				$result2 = $stmt2->fetch();
+				if($stmt2->num_rows != 0){
+					if(!empty($result2)){
+						do{
+							$returned_content2 .= " ".$nama_mk."</span> ".$sks_mk."sks.";
+						}while( $result2 = $stmt2->fetch() );
+					}
+				}
+				$stmt2->close();
+			}while( $result = $stmt->fetch() );//Loop berlangsung selama masih ada baris yang dapat diambil dari hasil eksekusi statement
+		}
+	}
+	$stmt->close();
+	$mysqli->close();
   }
 
   //Kirimkan pesan yang telah disiapkan kepada fungsi pemanggil

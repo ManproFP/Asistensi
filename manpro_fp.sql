@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 19, 2014 at 05:38 PM
+-- Generation Time: May 24, 2014 at 01:54 PM
 -- Server version: 5.6.11
 -- PHP Version: 5.5.1
 
@@ -62,8 +62,8 @@ CREATE TABLE IF NOT EXISTS `asistensi` (
 
 INSERT INTO `asistensi` (`nim`, `jadwal_id`, `status`) VALUES
 ('71110061', '12LabA', 'diproses'),
-('71110150', '51LabA', 'diproses'),
-('71110150', '12LabA', 'diproses');
+('71110150', '12LabA', 'diproses'),
+('71110150', '51LabA', 'diproses');
 
 -- --------------------------------------------------------
 
@@ -75,7 +75,10 @@ CREATE TABLE IF NOT EXISTS `dosen` (
   `dosen_id` varchar(10) NOT NULL,
   `nama` varchar(50) NOT NULL,
   `email` varchar(30) NOT NULL,
+  `no_hp` varchar(15) NOT NULL DEFAULT '-',
   `user_id` varchar(30) NOT NULL,
+  `pp` varchar(100) NOT NULL DEFAULT 'images/users/no-image.jpg',
+  `status` varchar(10) NOT NULL DEFAULT 'aktif',
   PRIMARY KEY (`dosen_id`),
   UNIQUE KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -84,8 +87,8 @@ CREATE TABLE IF NOT EXISTS `dosen` (
 -- Dumping data for table `dosen`
 --
 
-INSERT INTO `dosen` (`dosen_id`, `nama`, `email`, `user_id`) VALUES
-('TI090001', 'Mr. Dosen Serba Bisa, S.Pk, M.Pr', 'nama_dosen@ti.ukdw.ac.id', 'TI090001');
+INSERT INTO `dosen` (`dosen_id`, `nama`, `email`, `no_hp`, `user_id`, `pp`, `status`) VALUES
+('TI090001', 'Mr. Dosen Serba Bisa, S.Pk, M.Pr 	', 'nama_dosen@ti.ukdw.ac.id', '-', 'TI090001', 'images/users/no-image.jpg', 'aktif');
 
 -- --------------------------------------------------------
 
@@ -117,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `jadwal` (
   `jadwal_id` varchar(10) NOT NULL,
   `hari` varchar(10) NOT NULL,
   `waktu` time NOT NULL,
-  `jenis` varchar(10) NOT NULL DEFAULT 'Pratikum',
+  `jenis` varchar(10) NOT NULL DEFAULT 'Praktikum',
   `ruang` varchar(8) NOT NULL,
   `grup` varchar(2) NOT NULL,
   `mk_id` varchar(10) NOT NULL,
@@ -130,8 +133,8 @@ CREATE TABLE IF NOT EXISTS `jadwal` (
 --
 
 INSERT INTO `jadwal` (`jadwal_id`, `hari`, `waktu`, `jenis`, `ruang`, `grup`, `mk_id`) VALUES
-('12LabA', 'Senin', '11:30:00', 'Pratikum', 'Lab. A', 'A', 'TIW015'),
-('51LabA', 'Jumat', '07:30:00', 'Pratikum', 'Lab. A', 'A', 'TIW015');
+('12LabA', 'Senin', '11:30:00', 'Praktikum', 'Lab. A', 'A', 'TIW015'),
+('51LabA', 'Jumat', '07:30:00', 'Praktikum', 'Lab. A', 'A', 'TIW015');
 
 -- --------------------------------------------------------
 
@@ -169,6 +172,8 @@ CREATE TABLE IF NOT EXISTS `mahasiswa` (
   `no_hp` varchar(15) NOT NULL,
   `email` varchar(30) NOT NULL,
   `user_id` varchar(30) NOT NULL,
+  `pp` varchar(100) NOT NULL DEFAULT 'images/users/no-image.jpg',
+  `transkrip` varchar(100) NOT NULL DEFAULT 'images/users/no-image.jpg',
   UNIQUE KEY `user_id` (`user_id`),
   UNIQUE KEY `nim` (`nim`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -177,9 +182,11 @@ CREATE TABLE IF NOT EXISTS `mahasiswa` (
 -- Dumping data for table `mahasiswa`
 --
 
-INSERT INTO `mahasiswa` (`nim`, `nama`, `gender`, `no_hp`, `email`, `user_id`) VALUES
-('71110061', 'Andy Kurniawan', 'Laki-laki', '+6285729867666', 'andy_kurniawan@live.com', '71110061'),
-('71110150', 'Yesaya Kristian Niko', 'Laki-laki', '+6289693431443', 'rhaynick@live.com', '71110150');
+INSERT INTO `mahasiswa` (`nim`, `nama`, `gender`, `no_hp`, `email`, `user_id`, `pp`, `transkrip`) VALUES
+('71110061', 'Andy Kurniawan', 'Laki-laki', '+6285729867666', 'andy_kurniawan@live.com', '71110061', 'images/users/no-image.jpg', 'images/users/no-image.jpg'),
+('71110101', 'Dummy Char', '', '+6289693431443', 'dummy@char.com', '71110101', 'images/users/no-image.jpg', 'images/users/no-image.jpg'),
+('71110102', 'Dummy Char2', '', '', 'dummy@char2.com', '71110102', 'images/users/no-image.jpg', 'images/users/no-image.jpg'),
+('71110150', 'Yesaya Kristian Niko', 'Laki-laki', '+6289693431443', 'rhaynick@live.com', '71110150', 'images/users/no-image.jpg', 'images/users/no-image.jpg');
 
 -- --------------------------------------------------------
 
@@ -199,7 +206,8 @@ CREATE TABLE IF NOT EXISTS `matakuliah` (
 --
 
 INSERT INTO `matakuliah` (`mk_id`, `nama`, `sks`) VALUES
-('TIW015', 'Teknologi Komputer', 5);
+('TIW015', 'Teknologi Komputer', 5),
+('TIW099', 'Dummy MK', 3);
 
 -- --------------------------------------------------------
 
@@ -222,7 +230,7 @@ CREATE TABLE IF NOT EXISTS `pengumuman` (
 
 INSERT INTO `pengumuman` (`note_id`, `tanggal`, `isi`, `koor_id`) VALUES
 (1, '2014-05-14', 'Asistensi UKDW versi Closed Beta', 'Admin01'),
-(4, '2014-05-15', 'Final release untuk situs ini akan dilaksanakan pada akhir Juni 2014.', 'Admin02'),
+(4, '2014-05-15', 'Final release untuk situs ini akan dilaksanakan pada akhir Juni 2014 yaaa.', 'Admin02'),
 (7, '2014-05-18', 'Dibutuhkan beta tester berpengalaman.', 'Admin01');
 
 -- --------------------------------------------------------
@@ -254,7 +262,12 @@ INSERT INTO `recent_activity` (`waktu`, `aktivis`, `aktivitas`) VALUES
 ('2014-05-19 08:29:18', '71110150', 'membatalkan asistensi.'),
 ('2014-05-19 08:33:22', '71110150', 'mendaftar asistensi.'),
 ('2014-05-19 08:33:47', '71110150', 'membatalkan asistensi.'),
-('2014-05-19 08:33:50', '71110150', 'mendaftar asistensi.');
+('2014-05-19 08:33:50', '71110150', 'mendaftar asistensi.'),
+('2014-05-24 09:40:20', 'TI090001', 'menolak asisteni mahasiswa.'),
+('2014-05-24 10:56:06', '71110150', 'membatalkan asistensi.'),
+('2014-05-24 10:56:10', '71110150', 'mendaftar asistensi.'),
+('2014-05-24 10:56:11', '71110150', 'membatalkan asistensi.'),
+('2014-05-24 10:56:13', '71110150', 'mendaftar asistensi.');
 
 -- --------------------------------------------------------
 
@@ -275,6 +288,8 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 INSERT INTO `user` (`user_id`, `password`, `user_type`) VALUES
 ('71110061', '746fef5972309cb2cd432f4feb2e1cf7', 2),
+('71110101', 'd41d8cd98f00b204e9800998ecf8427e', 2),
+('71110102', '5830a6005e09cd3bff964a5878116f3f', 2),
 ('71110150', '7213a5d7d54d0845a2cd3b71d0f64b00', 2),
 ('Admin01', '798ebdec9075ffce12517800b7eb6179', 0),
 ('Admin02', '6fdc43db03afcd1b13158b605a68f83b', 0),
@@ -288,8 +303,8 @@ INSERT INTO `user` (`user_id`, `password`, `user_type`) VALUES
 -- Constraints for table `ampu`
 --
 ALTER TABLE `ampu`
-  ADD CONSTRAINT `diampu` FOREIGN KEY (`mk_id`) REFERENCES `matakuliah` (`mk_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `mengampu` FOREIGN KEY (`dosen_id`) REFERENCES `dosen` (`dosen_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `mengampu` FOREIGN KEY (`dosen_id`) REFERENCES `dosen` (`dosen_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `diampu` FOREIGN KEY (`mk_id`) REFERENCES `matakuliah` (`mk_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `asistensi`

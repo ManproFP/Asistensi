@@ -14,7 +14,7 @@
 
 <?php //Action on Logged Function
 		//Cek apakah variabel $_SESSION["logged"] telah terset dan nilainya == 1.
-		if(isset($_SESSION["logged"]) && $_SESSION["logged"]==1)
+		if(isset($_SESSION["logged"]))
 		{
 			//Jika ya, berarti user telah melakukan login sebelumnya, maka alihkan user ke halaman home.
 			header("Location: home.php");

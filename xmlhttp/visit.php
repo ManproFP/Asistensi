@@ -13,7 +13,7 @@
 		include '../login/connect.php';
 		if($target_type == 1){
 			$table = "dosen";
-			$req_field = "nama, email, no_hp, pp";
+			$req_field = "nama, email, no_hp, pp, status";
 			$bind_target = 1;
 		}
 		else{
@@ -28,7 +28,7 @@
 		$stmt->bind_param('s',$target_id);
 		$stmt->execute();
 		if($bind_target == 1){
-			$stmt->bind_result($nama, $email, $no_hp, $pp);
+			$stmt->bind_result($nama, $email, $no_hp, $pp, $status);
 		}
 		else{
 			$stmt->bind_result($nama, $email, $no_hp, $pp, $transkrip);
@@ -69,6 +69,9 @@
 							<span class='profil_label'>No HP</span><span>: ".$no_hp."</span>";
 					if($can_edit)echo $button_to_edit;
 					echo "<br/><br/>";
+					if($target_type == 1){	
+						echo "<span class='profil_label'>Status</span><span>: ".$status."</span>";
+					}
 
 					if( $target_type == 2 && ($_SESSION["user_id"] == $target_id || $_SESSION["type"] != 2)){//tambahkan transkrip nilai untuk dilihat oleh diri sendiri atau dosen & koordinator
 						echo "<span class='profil_label'>Transkrip</span><a id='profile_pop_transkrip' onclick='popTranskrip(\"".$transkrip."\")'>Lihat</a><br/>";

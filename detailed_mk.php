@@ -48,14 +48,23 @@
 						$stmt2->bind_result($dosen_id, $dosen_nama);
 						$stmt2->store_result();
 						$result2 = $stmt2->fetch();
+						$jlh_dosen=0;
+						$id_dosen_mk = [];
 						if($stmt2->num_rows != 0){
 							if(!empty($result2)){
 								do{
+									array_push($id_dosen_mk, $dosen_id);
+									$jlh_dosen++;
 									echo "
-										<br/><span class='dosen_pengampu_mk'>[".$dosen_id."] ".$dosen_nama."</span>
+										<br/><span class='dosen_pengampu_mk'><a target='_blank' href='visit_profil.php?id=".$dosen_id."&type=1'>[".$dosen_id."] ".$dosen_nama."</a></span>
 									";
 								}while( $result2 = $stmt2->fetch() );
 							}
+						}
+						else{
+							echo "
+								<br/><span class='dosen_pengampu_mk'>-</span>
+							";
 						}
 						$stmt2->close();
 						echo "</div><div id ='jadwal_mk'><span class='content_title'>Jadwal Mata Kuliah</span><br/>";
@@ -89,10 +98,15 @@
 										if(!empty($result3)){
 											do{
 												if($_SESSION["user_id"] == $nim)$find_user_in_list = true;
-												echo "<div class='list_asisten_mk'><a target='_blank' href='visit.php?id=".$nim."'>[".$nim."] ".$nama."</a> Status: ".$status_asistensi.".";
+												echo "<div class='list_asisten_mk'><a target='_blank' href='visit_profil.php?id=".$nim."&type=2'>[".$nim."] ".$nama."</a> Status: ".$status_asistensi.".";
 												if($status_asistensi == "diproses"){
 													if($_SESSION["type"]==1){//Action untuk tipe user 1 (Dosen)
-														echo "<a href='?id=".$mk_id."&action=tolak&jadwal_id=".$jadwal_id."&nim=".$nim."' class='button_action_asistensi'>Tolak</a><a href='?id=".$mk_id."&action=terima&jadwal_id=".$jadwal_id."&nim=".$nim."' class='button_action_asistensi'>Terima</a>";
+														for($i= 0; $i < $jlh_dosen; $i++){
+															if($_SESSION["user_id"] == $id_dosen_mk[$i]){
+																echo "<a href='?id=".$mk_id."&action=tolak&jadwal_id=".$jadwal_id."&nim=".$nim."' class='button_action_asistensi'>Tolak</a><a href='?id=".$mk_id."&action=terima&jadwal_id=".$jadwal_id."&nim=".$nim."' class='button_action_asistensi'>Terima</a>";
+																break;
+															}
+														}
 													}
 													else if($_SESSION["type"]==2){//Action untuk tipe user 2 (Mahasiswa)
 														if($_SESSION["user_id"] == $nim)
@@ -100,13 +114,27 @@
 													}
 												}
 												else if($status_asistensi == "diterima"){
-														if($_SESSION["type"] == 2 && $_SESSION["user_id"] != $nim){}
-														else
+													if($_SESSION["type"]==1){//Action untuk tipe user 1 (Dosen)
+														for($i= 0; $i < $jlh_dosen; $i++){
+															if($_SESSION["user_id"] == $id_dosen_mk[$i]){
+																echo "<a href='?id=".$mk_id."&action=batal&jadwal_id=".$jadwal_id."&nim=".$nim."' class='button_action_asistensi'>Batal</a>";
+																break;
+															}
+														}
+													}
+													else if($_SESSION["type"]==2){//Action untuk tipe user 2 (Mahasiswa)
+														if($_SESSION["user_id"] == $nim)
 														echo "<a href='?id=".$mk_id."&action=batal&jadwal_id=".$jadwal_id."&nim=".$nim."' class='button_action_asistensi'>Batal</a>";
+													}
 												}
 												else if($status_asistensi == "ditolak"){
 													if($_SESSION["type"]==1){//Action untuk tipe user 1 (Dosen)
-														echo "<a href='?id=".$mk_id."&action=batal&jadwal_id=".$jadwal_id."&nim=".$nim."' class='button_action_asistensi'>Batal</a>";
+														for($i= 0; $i < $jlh_dosen; $i++){
+															if($_SESSION["user_id"] == $id_dosen_mk[$i]){
+																echo "<a href='?id=".$mk_id."&action=batal&jadwal_id=".$jadwal_id."&nim=".$nim."' class='button_action_asistensi'>Batal</a>";
+																break;
+															}
+														}
 													}
 													else if($_SESSION["type"]==2){//Action untuk tipe user 2 (Mahasiswa)
 														if($_SESSION["user_id"] == $nim)
@@ -125,6 +153,9 @@
 									$stmt3->close();
 								}while( $result2 = $stmt2->fetch() );
 							}
+						}
+						else{
+							echo "<span class='jadwal_mk'>-</span>";
 						}
 						$stmt2->close();
 						echo "</div></div>";

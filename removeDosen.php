@@ -6,14 +6,7 @@
 	}
 	else{
 		include 'login/connect.php';
-		$query = "DELETE FROM dosen WHERE dosen_id = ?";
-		$stmt = $mysqli->prepare($query);
-		echo $mysqli->error;
-		$stmt->bind_param('s',$_POST["dosen_id"]);
-		$stmt->execute();
-		$stmt->close();
-
-		$query = "DELETE FROM user WHERE user_id = ?";
+		$query = "UPDATE dosen SET status = 'non-aktif' WHERE dosen_id = ?";
 		$stmt = $mysqli->prepare($query);
 		echo $mysqli->error;
 		$stmt->bind_param('s',$_POST["dosen_id"]);

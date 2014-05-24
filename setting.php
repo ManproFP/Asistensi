@@ -132,6 +132,24 @@
 		}
 		return true;
 	}
+	function cekTambahJadwal(){
+		var req6_error = document.getElementById("req6_error");
+		if(req6_error != null){
+			req6_error.remove();
+		}
+		var req61 = document.getElementById("req61");
+		var req62 = document.getElementById("req62");
+		var req63 = document.getElementById("req63");
+		var req64 = document.getElementById("req64");
+		var req65 = document.getElementById("req65");
+		var req66 = document.getElementById("req66");
+
+		if(req61.value == 0 || req62.value == 0 || req63.value == 0 || req64.value == "" || req65.value == "" || req66.value == ""){
+			document.getElementById("req6").innerHTML += "<i id='req6_error'>*Field belum lengkap</i>";
+			return false;
+		}
+		return true;
+	}
 	
 	window.onload = function(){
 
@@ -155,16 +173,15 @@
 						<input class ='setting_field' id='req14' type='text' name='email' value='' placeholder='Email Dosen*'>
 						<input type='submit' name='submit' value='Daftarkan'>
 					</form><br/>
-					<b class='title_setting'>Hapus Akun Dosen</b><br/>
-					<i>Warning : Anda hanya dapat menghapus akun dosen setelah meremove Dosen dari setiap mata kuliah yang diampunya</i>
+					<b class='title_setting'>Non-aktifkan Akun Dosen</b><br/>
 					<form id = 'req2' method='post' action='removeDosen.php' onsubmit='return(cekHapusAkunDosen())'>		
 						<input class ='setting_field' id='req21' type='text' name='dosen_id' value='' placeholder='ID Dosen*'>
-						<input type='submit' name='submit' value='Hapus'>
+						<input type='submit' name='submit' value='Non-aktifkan'>
 					</form><br/>
 					<b class='title_setting'>Reset Jadwal Asistensi</b><br/>
 					<i>Warning : Anda akan menghapus seluruh jadwal asistensi yang ada dengan mengklik tombol dibawah</i>
 					<form id = 'req3' method='post' action='resetJadwal.php' onsubmit='return(cekResetJadwal())'>		
-						<input class ='setting_field' id='req31' type='text' name='verivy' value='' placeholder='Enter something'>
+						<input class ='setting_field' id='req31' type='password' name='verivy' value='' placeholder='Confirm Password'>
 						<input type='submit' name='submit' value='Reset'>
 					</form><br/>
 					<b class='title_setting'>Tambahkan Matakuliah Berpraktikum/Tutorial</b><br/>
@@ -180,6 +197,35 @@
 						<input class ='setting_field' id='req52' type='text' name='mk_id' value='' placeholder='ID MK*'>
 						<input type='submit' name='submit' value='Tambah'>
 					</form><br/>
+					<b class='title_setting'>Tambahkan Jadwal Mata Kuliah</b><br/>
+					<form id = 'req6' method='post' action='tambahJadwal.php' onsubmit='return(cekTambahJadwal())'>
+						<select class ='setting_field' id='req61' name="hari">
+							<option value=0 selected>Hari</option>
+							<option value=1>Senin</option>
+							<option value=2>Selasa</option>
+							<option value=3>Rabu</option>
+							<option value=4>Kamis</option>
+							<option value=5>Jumat</option>
+						</select>
+						<select class ='setting_field' id='req62' name="waktu">
+							<option value=0 selected>Sesi</option>
+							<option value=1>Sesi 1</option>
+							<option value=2>Sesi 2</option>
+							<option value=3>Sesi 3</option>
+							<option value=4>Sesi 4</option>
+						</select>
+						<select class ='setting_field' id='req63' name="jenis">
+							<option value=0 selected>Jenis</option>
+							<option value=1>Praktikum</option>
+							<option value=2>Tutorial</option>
+						</select>
+						<input class ='setting_field' id='req64' type='text' name='ruang' value='' placeholder='Ruang*'>
+						<input class ='setting_field' id='req65' type='text' name='grup' value='' placeholder='Grup*'>
+						<input class ='setting_field' id='req66' type='text' name='mk_id' value='' placeholder='ID MK*'>
+						<input type='submit' name='submit' value='Tambah'>
+					</form><br/>
+
+						
 				</div>
 			</div>		
 		</div>

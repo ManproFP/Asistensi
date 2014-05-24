@@ -30,7 +30,7 @@ if ((($_FILES["file"]["type"] == "image/gif")
 	}
     $pp ="images/users/".$newfilename;
 	include 'login/connect.php';
-	$query = "UPDATE ".$table." SET pp = ? WHERE user_id = ?";
+	$query = "UPDATE ".$table." SET transkrip = ? WHERE user_id = ?";
 	$stmt = $mysqli->prepare($query);
 	echo $mysqli->error;
 	$stmt->bind_param('ss',$pp, $_SESSION["user_id"]);

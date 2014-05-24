@@ -70,11 +70,12 @@
 					<h3>Jadwal Praktikum/Tutorial Mata Kuliah</h3>
 					<?php
 						if($_SESSION["type"] == 0){
-							echo "<div id= 'jadwal_admin_option'>Total jadwal : 2 Praktikum, 0 Tutorial<span class='button_span_mk'>+ Add</span></div>";
+							echo "<div id= 'jadwal_admin_option'>Total jadwal : 2 Praktikum, 0 Tutorial</div>";//<span class='button_span_mk'>+ Add</span></div>";
 						}
 						if($_SESSION["type"] == 2){
-							echo "<div id= 'jadwal_admin_option'>Klik pada jadwal matakuliah untuk mendaftar/batal.<br/>Keterangan warna : Biru(Belum Mendaftar), Merah (Asistensi Ditolak), Hijau (Asistensi diterima), Hitam (Asistensi masih diproses).</div>";
+							//echo "<div id= 'jadwal_admin_option'>Klik pada jadwal matakuliah untuk mendaftar/batal.<br/>Keterangan warna : Biru(Belum Mendaftar), Merah (Asistensi Ditolak), Hijau (Asistensi diterima), Hitam (Asistensi masih diproses).</div>";
 						}
+						include 'login/connect.php';
 						for($i = 0; $i <5; $i++){
 							if($i==0)$current_i_id = "title";
 							else $current_i_id = $i;
@@ -106,27 +107,165 @@
 											}
 										}
 										else if($j==1){
-											$type = ($i + $j) % 2;
 											switch($i){
-												case 1: echo "<span class='jadwal_color_".$type."'>08:30</span>";break;
-												case 2: echo "<span class='jadwal_color_".$type."'>11:30<br/><a class='color_code_4'>Praktikum Teknologi Komputer Grup A (Lab A)</a></span>";break;
-												case 3: echo "<span class='jadwal_color_".$type."'>14:30</span>";break;
-												case 4: echo "<span class='jadwal_color_".$type."'>17:30</span>";break;
+												case 1: echo "<span>08:30</span><br/>";
+														$query="SELECT jadwal.jenis, matakuliah.nama, jadwal.grup, jadwal.ruang FROM jadwal INNER JOIN matakuliah WHERE jadwal.hari = 'Senin' AND jadwal.waktu = '08:30:00' AND jadwal.mk_id = matakuliah.mk_id";
+														$stmt = $mysqli->prepare($query);
+														echo $mysqli->error;
+														$stmt->execute();
+														$stmt->bind_result($jenis, $nama, $grup, $ruang);
+														$stmt->store_result();
+														$result = $stmt->fetch();
+														if($stmt->num_rows != 0){
+															if( !empty( $result )){
+																do{
+																	echo "<span class='color_code_4'>".$jenis." ".$nama." Grup ".$grup." (".$ruang.")</span><br/>";
+																}while( $result = $stmt->fetch() ); 
+															}
+														}
+														$stmt->close();
+														break;
+
+												case 2: echo "<span>11:30</span><br/>";
+														$query="SELECT jadwal.jenis, matakuliah.nama, jadwal.grup, jadwal.ruang FROM jadwal INNER JOIN matakuliah WHERE jadwal.hari = 'Senin' AND jadwal.waktu = '11:30:00' AND jadwal.mk_id = matakuliah.mk_id";
+														$stmt = $mysqli->prepare($query);
+														echo $mysqli->error;
+														$stmt->execute();
+														$stmt->bind_result($jenis, $nama, $grup, $ruang);
+														$stmt->store_result();
+														$result = $stmt->fetch();
+														if($stmt->num_rows != 0){
+															if( !empty( $result )){
+																do{
+																	echo "<span class='color_code_4'>".$jenis." ".$nama." Grup ".$grup." (".$ruang.")</span><br/>";
+																}while( $result = $stmt->fetch() ); 
+															}
+														}
+														$stmt->close();
+														break;
+
+												case 3: echo "<span>14:30</span><br/>";
+														$query="SELECT jadwal.jenis, matakuliah.nama, jadwal.grup, jadwal.ruang FROM jadwal INNER JOIN matakuliah WHERE jadwal.hari = 'Senin' AND jadwal.waktu = '14:30:00' AND jadwal.mk_id = matakuliah.mk_id";
+														$stmt = $mysqli->prepare($query);
+														echo $mysqli->error;
+														$stmt->execute();
+														$stmt->bind_result($jenis, $nama, $grup, $ruang);
+														$stmt->store_result();
+														$result = $stmt->fetch();
+														if($stmt->num_rows != 0){
+															if( !empty( $result )){
+																do{
+																	echo "<span class='color_code_4'>".$jenis." ".$nama." Grup ".$grup." (".$ruang.")</span><br/>";
+																}while( $result = $stmt->fetch() ); 
+															}
+														}
+														$stmt->close();
+														break;
+
+												case 4: echo "<span>17:30</span><br/>";
+														$query="SELECT jadwal.jenis, matakuliah.nama, jadwal.grup, jadwal.ruang FROM jadwal INNER JOIN matakuliah WHERE jadwal.hari = 'Senin' AND jadwal.waktu = '17:30:00' AND jadwal.mk_id = matakuliah.mk_id";
+														$stmt = $mysqli->prepare($query);
+														echo $mysqli->error;
+														$stmt->execute();
+														$stmt->bind_result($jenis, $nama, $grup, $ruang);
+														$stmt->store_result();
+														$result = $stmt->fetch();
+														if($stmt->num_rows != 0){
+															if( !empty( $result )){
+																do{
+																	echo "<span class='color_code_4'>".$jenis." ".$nama." Grup ".$grup." (".$ruang.")</span><br/>";
+																}while( $result = $stmt->fetch() ); 
+															}
+														}
+														$stmt->close();
+														break;
 											}
 										}
 										else{
-											$type = ($i + $j) % 2;
+											switch($j){
+													case 2: $hari = 'Selasa'; break;
+													case 3: $hari = 'Rabu'; break;
+													case 4: $hari = 'Kamis'; break;
+													case 5: $hari = 'Jumat'; break;
+											}
 											switch($i){
-												case 1: echo "<span class='jadwal_color_".$type."'>07:30<br/>"; if($j == 5)echo "<a class='color_code_4'>Praktikum Teknologi Komputer Grup B (Lab A)</a>";echo "</span>";break;
-												case 2: echo "<span class='jadwal_color_".$type."'>10:30<br/></span>";break;
-												case 3: echo "<span class='jadwal_color_".$type."'>13:30</span>";break;
-												case 4: echo "<span class='jadwal_color_".$type."'>16:30</span>";break;
+												case 1: echo "<span>07:30<br/></span>";
+														$query="SELECT jadwal.jenis, matakuliah.nama, jadwal.grup, jadwal.ruang FROM jadwal INNER JOIN matakuliah WHERE jadwal.hari = '".$hari."' AND jadwal.waktu = '07:30:00' AND jadwal.mk_id = matakuliah.mk_id";
+														$stmt = $mysqli->prepare($query);
+														echo $mysqli->error;
+														$stmt->execute();
+														$stmt->bind_result($jenis, $nama, $grup, $ruang);
+														$stmt->store_result();
+														$result = $stmt->fetch();
+														if($stmt->num_rows != 0){
+															if( !empty( $result )){
+																do{
+																	echo "<span class='color_code_4'>".$jenis." ".$nama." Grup ".$grup." (".$ruang.")</span><br/>";
+																}while( $result = $stmt->fetch() ); 
+															}
+														}
+														$stmt->close();
+														break;
+														
+												case 2: echo "<span>10:30</span><br/>";
+														$query="SELECT jadwal.jenis, matakuliah.nama, jadwal.grup, jadwal.ruang FROM jadwal INNER JOIN matakuliah WHERE jadwal.hari = '".$hari."' AND jadwal.waktu = '10:30:00' AND jadwal.mk_id = matakuliah.mk_id";
+														$stmt = $mysqli->prepare($query);
+														echo $mysqli->error;
+														$stmt->execute();
+														$stmt->bind_result($jenis, $nama, $grup, $ruang);
+														$stmt->store_result();
+														$result = $stmt->fetch();
+														if($stmt->num_rows != 0){
+															if( !empty( $result )){
+																do{
+																	echo "<span class='color_code_4'>".$jenis." ".$nama." Grup ".$grup." (".$ruang.")</span><br/>";
+																}while( $result = $stmt->fetch() ); 
+															}
+														}
+														$stmt->close();
+														break;
+
+												case 3: echo "<span>13:30</span><br/>";
+														$query="SELECT jadwal.jenis, matakuliah.nama, jadwal.grup, jadwal.ruang FROM jadwal INNER JOIN matakuliah WHERE jadwal.hari = '".$hari."' AND jadwal.waktu = '13:30:00' AND jadwal.mk_id = matakuliah.mk_id";
+														$stmt = $mysqli->prepare($query);
+														echo $mysqli->error;
+														$stmt->execute();
+														$stmt->bind_result($jenis, $nama, $grup, $ruang);
+														$stmt->store_result();
+														$result = $stmt->fetch();
+														if($stmt->num_rows != 0){
+															if( !empty( $result )){
+																do{
+																	echo "<span class='color_code_4'>".$jenis." ".$nama." Grup ".$grup." (".$ruang.")</span><br/>";
+																}while( $result = $stmt->fetch() ); 
+															}
+														}
+														$stmt->close();
+														break;
+												case 4: echo "<span>16:30</span><br/>";
+														$query="SELECT jadwal.jenis, matakuliah.nama, jadwal.grup, jadwal.ruang FROM jadwal INNER JOIN matakuliah WHERE jadwal.hari = '".$hari."' AND jadwal.waktu = '16:30:00' AND jadwal.mk_id = matakuliah.mk_id";
+														$stmt = $mysqli->prepare($query);
+														echo $mysqli->error;
+														$stmt->execute();
+														$stmt->bind_result($jenis, $nama, $grup, $ruang);
+														$stmt->store_result();
+														$result = $stmt->fetch();
+														if($stmt->num_rows != 0){
+															if( !empty( $result )){
+																do{
+																	echo "<span class='color_code_4'>".$jenis." ".$nama." Grup ".$grup." (".$ruang.")</span><br/>";
+																}while( $result = $stmt->fetch() ); 
+															}
+														}
+														$stmt->close();
+														break;
 											}
 										}
 									echo "</div>";
 								}
 							echo "</div>";
 						}
+						$mysqli->close();
 					?>
 				</div>
 			</div>		
